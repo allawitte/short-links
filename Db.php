@@ -5,7 +5,6 @@ class Db
     function __construct($db, $login, $pass)
     {
         try {
-            //$this->db = new PDO("mysql:host=localhost;dbname=$db; charset=utf8;", $login, $pass);
             $this->db = new PDO("mysql:host=localhost;dbname=$db; charset=utf8;", $login, $pass);
         } catch (PDOException $e) {
             print "Error!: " . $e->getMessage() . "<br/>";
@@ -49,6 +48,12 @@ class Db
         $host = $_SERVER['HTTP_HOST'];
         $nChars = 8;
         return $host.'/'.subStr(md5(uniqid()), 0, $nChars);
+    }
+    function getOriginalLink($url){
+        $sql = "SELECT link FROM links WHERE short_link like '%$url'";
+        $res = $this->db->query($sql);
+        $links = $res->fetch(PDO::FETCH_ASSOC);
+        return $links['link'];
     }
 
 }

@@ -1,3 +1,11 @@
+<?php
+require_once 'Db.php';
+//$db = new Db('links', 'root', '');
+$db = new Db('allawi1q_links', 'allawi1q', 'zUmy%evedYtY');
+$url = mb_substr( $_SERVER['REQUEST_URI'], 1);
+$link = $db->getOriginalLink($url);
+header("Location: $link");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
